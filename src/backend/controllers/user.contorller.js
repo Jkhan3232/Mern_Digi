@@ -16,7 +16,7 @@ import CryptoJS from "crypto-js";
 const registerUser = asyncHandler(async (req, res) => {
   try {
     // Destructure fullName, email, username, and password from request body
-    const { fullName, email, username, password, role, phone } = req.body;
+    const { fullName, email, username, password, phone } = req.body;
 
     // Check if any of the fields are empty
     if (
@@ -40,7 +40,6 @@ const registerUser = asyncHandler(async (req, res) => {
       email,
       password,
       username: username.toLowerCase(),
-      role: role || UserRolesEnum.USER,
     });
 
     // Find the created user and remove sensitive information before sending the response
@@ -365,26 +364,6 @@ const resetPassword = asyncHandler(async (req, res) => {
     return res
       .status(200)
       .json(new ApiResponse(200, {}, "Password changed successfully"));
-  } catch (error) {
-    handleErrorResponse(error, res);
-  }
-});
-
-const assignRole = asyncHandler(async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const { role } = req.body;
-    const user = await User.findById(userId);
-
-    if (!user) {
-      throw new ApiError(404, "User does not exist");
-    }
-    user.role = role;
-    await user.save({ validateBeforeSave: false });
-
-    return res
-      .status(200)
-      .json(new ApiResponse(200, {}, "Role changed for the user"));
   } catch (error) {
     handleErrorResponse(error, res);
   }

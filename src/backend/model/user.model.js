@@ -40,12 +40,7 @@ const userSchema = new Schema(
       unique: true,
       lowercase: true,
     },
-    role: {
-      type: String,
-      enum: AvailableUserRoles,
-      default: UserRolesEnum.USER,
-      required: true,
-    },
+
     password: {
       type: String,
       required: [true, "Password is required"],
@@ -53,6 +48,7 @@ const userSchema = new Schema(
     refreshToken: {
       type: String,
     },
+
     loginType: {
       type: String,
       enum: AvailableSocialLogins,
