@@ -9,7 +9,7 @@ import {
   sendEmail,
   forgotPasswordMailgenContent,
 } from "../utils/SmtpValidation.js";
-import { UserLoginType, UserRolesEnum } from "../servers/constant.js";
+import { UserLoginType } from "../servers/constant.js";
 import CryptoJS from "crypto-js";
 
 // Endpoint to register a new user
@@ -380,5 +380,4 @@ export {
   updateAccountDetails,
   resetPassword,
   forgotPassword,
-  assignRole,
 };

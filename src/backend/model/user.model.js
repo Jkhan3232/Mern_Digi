@@ -3,11 +3,9 @@ import jwt from "jsonwebtoken";
 import CryptoJS from "crypto-js";
 import bcrypt from "bcrypt";
 import {
-  AvailableSocialLogins,
-  AvailableUserRoles,
   USER_TEMPORARY_TOKEN_EXPIRY,
   UserLoginType,
-  UserRolesEnum,
+  AvailableSocialLogins,
 } from "../servers/constant.js";
 
 const userSchema = new Schema(

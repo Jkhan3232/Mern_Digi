@@ -1,5 +1,4 @@
 import { body, param } from "express-validator";
-import { AvailableUserRoles } from "../servers/constant.js";
 
 // Validation for user registration
 const userRegisterValidator = () => {
@@ -37,10 +36,6 @@ const userRegisterValidator = () => {
     // Validate password
     body("password").trim().notEmpty().withMessage("Password is required"),
     // Validate user role
-    body("role")
-      .optional()
-      .isIn(AvailableUserRoles)
-      .withMessage("Invalid user role"),
   ];
 };
 
@@ -85,22 +80,10 @@ const userResetForgottenPasswordValidator = () => {
   ];
 };
 
-// Validation for assigning user role
-const userAssignRoleValidator = () => {
-  return [
-    // Validate user role assignment
-    body("role")
-      .optional()
-      .isIn(AvailableUserRoles)
-      .withMessage("Invalid user role"),
-  ];
-};
-
 export {
   userChangeCurrentPasswordValidator,
   userForgotPasswordValidator,
   userLoginValidator,
   userRegisterValidator,
   userResetForgottenPasswordValidator,
-  userAssignRoleValidator,
 };

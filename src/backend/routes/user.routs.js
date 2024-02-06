@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { UserRolesEnum } from "../servers/constant.js";
+
 import {
   registerUser,
   loginUser,
@@ -8,15 +8,13 @@ import {
   changeCurrentPassword,
   getCurrentUser,
   updateAccountDetails,
-  assignRole,
   forgotPassword,
   resetPassword,
 } from "../controllers/user.contorller.js";
-import { verifyJWT, verifyPermission } from "../middlewares/auth.middleware.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { validate } from "../vaidators/validate.js";
-import { mongoIdPathVariableValidator } from "../vaidators/mongoId.validate.js";
+
 import {
-  userAssignRoleValidator,
   userForgotPasswordValidator,
   userLoginValidator,
   userChangeCurrentPasswordValidator,
@@ -55,16 +53,5 @@ router
 router
   .route("/reset-password/:resetToken")
   .post(userResetForgottenPasswordValidator(), validate, resetPassword);
-
-router
-  .route("/asign-role/:userId")
-  .post(
-    verifyJWT,
-    verifyPermission([UserRolesEnum.ADMIN]),
-    mongoIdPathVariableValidator("userId"),
-    userAssignRoleValidator(),
-    validate,
-    assignRole
-  );
 
 export default router;
