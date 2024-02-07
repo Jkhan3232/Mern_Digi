@@ -17,10 +17,12 @@ app.use(cookieParser());
 
 //routes import
 import userRouter from "../routes/user.routs.js";
-
+import todoRouter from "../routes/todo.routes.js";
 //routes declaration
 
 app.use("/api/v1/users", userRouter);
+// After userRouter
+app.use("/api/v1/todos", todoRouter);
 
 // http://localhost:8000/api/v1/
 
