@@ -64,7 +64,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
 // Login endPoint
 const loginUser = asyncHandler(async (req, res) => {
-<<<<<<< HEAD
   try {
     const { email, username, password } = req.body;
   
@@ -107,64 +106,6 @@ const loginUser = asyncHandler(async (req, res) => {
     // get the user document ignoring the password and refreshToken field
     const loggedInUser = await User.findById(user._id).select(
       "-password -refreshToken -emailVerificationToken -emailVerificationExpiry"
-=======
-  const { email, username, password } = req.body;
-
-  if (!username && !email) {
-    throw new ApiError(400, "Username or email is required");
-  }
-
-  const user = await User.findOne({
-    $or: [{ username }, { email }],
-  });
-
-  if (!user) {
-    throw new ApiError(404, "User does not exist");
-  }
-
-  if (user.loginType !== UserLoginType.EMAIL_PASSWORD) {
-    throw new ApiError(
-      400,
-      "You have previously registered using " +
-        user.loginType?.toLowerCase() +
-        ". Please use the " +
-        user.loginType?.toLowerCase() +
-        " login option to access your account."
-    );
-  }
-
-  // Compare the incoming password with hashed password
-  const isPasswordValid = await user.isPasswordCorrect(password);
-
-  if (!isPasswordValid) {
-    throw new ApiError(401, "Invalid user credentials");
-  }
-
-  const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(
-    user._id
-  );
-
-  // get the user document ignoring the password and refreshToken field
-  const loggedInUser = await User.findById(user._id).select(
-    "-password -refreshToken -emailVerificationToken -emailVerificationExpiry"
-  );
-
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-  };
-
-  return res
-    .status(200)
-    .cookie("accessToken", accessToken, cookieOptions)
-    .cookie("refreshToken", refreshToken, cookieOptions)
-    .json(
-      new ApiResponse(
-        200,
-        { user: loggedInUser, accessToken, refreshToken },
-        "User logged in successfully"
-      )
->>>>>>> 6078971ecc8945df8f77bba823288e291170a78b
     );
   
     // TODO: Add more options to make cookie more secure and reliable
