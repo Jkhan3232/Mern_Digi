@@ -1,4 +1,5 @@
 import { User } from "../model/user.model.js";
+import {ApiError} from "./ApiError.js";
 
 const generateAccessAndRefereshTokens = async (userId) => {
   try {

@@ -25,9 +25,11 @@ import {
 const router = Router();
 
 // Endpoint to register a new user
-router.route("/register").post(userRegisterValidator(), validate, registerUser);
+// router.route("/register").post(userRegisterValidator(), validate, registerUser);
+router.route("/register").post(userRegisterValidator(), registerUser);
 // Endpoint to log in a user
-router.route("/login").post(userLoginValidator(), validate, loginUser);
+router.route("/login").post(loginUser);
+// router.route("/login").post(userLoginValidator(), loginUser);
 
 // Endpoint to log out a user
 router.route("/logout").post(verifyJWT, logoutUser);
